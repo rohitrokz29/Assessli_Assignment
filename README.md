@@ -7,7 +7,7 @@
 
 <h2>🚀 Go to the app </h2>
 
-[https://assessli-assignment-2024.vercel.app/](https://assessli-assignment-2024.vercel.app/)
+[Visit the Live app](https://assessli-assignment-2024.vercel.app/)
 
 <h2>Project Screenshots:</h2>
 
