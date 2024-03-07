@@ -7,7 +7,7 @@ function App() {
   const emailRef = useRef(null);
   const phoneRef = useRef(null);
   const messageRef = useRef(null);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState({ error: false, message: "" });
   const handleSendMessage = (e) => {
     e.preventDefault();
     const Name = nameRef.current.value;
@@ -15,7 +15,7 @@ function App() {
     const Phone = phoneRef.current.value;
     const Message = messageRef.current.value;
     if (!Name || !Email || !Phone || !Message) {
-      setStatus("Enter Valid Details");
+      setStatus({error:true,message:"Enter Valid Details!"});
       return;
     }
     setStatus("");
@@ -31,17 +31,17 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         if (res.created === 1) {
-          setStatus("Your Message has been Recorded");
+          setStatus({error:false,message:"Your Message has been Recorded"});
           nameRef.current.value = "";
           emailRef.current.value = "";
           phoneRef.current.value = "";
           messageRef.current.value = "";
         } else {
-          setStatus("Message not sent ");
+            setStatus({error:true,message:"Message Not Sent"});
         }
       })
       .catch((err) => {
-        setStatus("Message not sent ");
+            setStatus({error:true,message:"Message Not Sent"});
       });
   };
   return (
@@ -81,10 +81,13 @@ function App() {
           </button>
           <div
             className="status"
-            style={{ visibility: !status ? "hidden" : "" }}
+            style={{
+              visibility: !status.message ? "hidden" : "",
+              backgroundColor: status.error ? "#ff000039" : "#33fc0663",
+            }}
           >
-            {status}
-            <i className="fa-solid fa-xmark" onClick={() => setStatus("")} />
+            {status.message}
+            <i className="fa-solid fa-xmark" onClick={() => setStatus({...status,message:""})} />
           </div>
         </form>
       </main>
